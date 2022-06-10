@@ -3,13 +3,13 @@ const pool = require("../db");
 const userController = require("../controllers/user");
 
 router.post("/register", async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password } = req.body;
 
   const obtenerUsuario = await userController.register(
     name,
     email,
     password,
-    role
+    "ADM"
   );
 
   res.send(obtenerUsuario);

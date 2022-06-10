@@ -37,6 +37,20 @@ const userService = {
       return serviceResponseRegister;
     }
   },
+
+  obtenerRolPorEmail: async (email) => {
+    let serviceResponseRole = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        'select profile.code from profile inner join "user" on profile.id="user".id_profile where "user".email=$1',
+        [email]
+      );
+    } catch (error) {
+      serviceResponseRole.setErrorResponse(error.message, 500);
+    } finally {
+      return serviceResponseRole;
+    }
+  },
 };
 
 module.exports = userService;
