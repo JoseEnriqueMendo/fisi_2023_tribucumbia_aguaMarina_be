@@ -60,7 +60,35 @@ const userController = {
 
     const roleResponse = await userService.obtenerRolPorEmail(email);
 
-    console.log(role);
+    if (roleResponse.data.code !== "ADM") {
+      roleResponse.setErrorResponse(
+        "No se tiene permisos para acceder a esta página",
+        401
+      );
+      return roleResponse;
+    }
+
+    //Verificar que la contraseña coincida
+
+    const validPassword = await bcrypt.compare(
+      password,
+      responseExists.data.password
+    );
+
+    if (!validPassword) {
+      responseExists.setErrorResponse("Contraseña no válida", 401);
+      return responseExists;
+    }
+
+    //Crear Json web Token
+
+    const token = jwtGenerator(responseExists.data.id);
+
+    responseExists.setSucessResponse("Se inició sesión exitosamente", {
+      token: token,
+    });
+
+    return responseExists;
   },
 };
 

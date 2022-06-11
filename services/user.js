@@ -45,6 +45,7 @@ const userService = {
         'select profile.code from profile inner join "user" on profile.id="user".id_profile where "user".email=$1',
         [email]
       );
+      serviceResponseRole.setSucessResponse("Rol encontrado", rows[0]);
     } catch (error) {
       serviceResponseRole.setErrorResponse(error.message, 500);
     } finally {
