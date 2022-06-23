@@ -11,7 +11,6 @@ module.exports = function (req, res, next) {
   if (!token) {
     return res.status(403).send({ message: "Authorization denied" });
   }
-
   // Verify token
   try {
     //it is going to give use the user id (user:{id: user.id})

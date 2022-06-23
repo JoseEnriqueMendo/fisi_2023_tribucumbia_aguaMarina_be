@@ -9,7 +9,16 @@ const e = require("express");
 const { response } = require("express");
 
 const userController = {
-  register: async (name, email, password, role) => {
+  register: async (
+    name,
+    lastname,
+    gender,
+    email,
+    dni,
+    phone,
+    password,
+    role
+  ) => {
     const response = await userService.obtenerUsuario(email);
 
     //Comprobar si el email es valido
@@ -18,25 +27,33 @@ const userController = {
       response.setErrorResponse("Ya existe un usuario con este email", 400);
       return response;
     }
-
     //Encriptar contraseña
 
     const hashedPassword = await hashPassword(password);
-
     //INSERT user into the database
 
     if (role === "ADM") {
+      console.log("ADMIN");
       const AdminResult = await userService.registro(
         name,
+        lastname,
+        gender,
         email,
+        dni,
+        phone,
         hashedPassword,
         1
       );
       return AdminResult;
     } else {
+      console.log("CLIENT");
       const ClientResult = await userService.registro(
         name,
+        lastname,
+        gender,
         email,
+        dni,
+        phone,
         hashedPassword,
         2
       );
@@ -89,6 +106,16 @@ const userController = {
     });
 
     return responseExists;
+  },
+
+  showName: async (id) => {
+    const idResponse = await userService.obtenerUsuarioPorId(id);
+
+    if (!idResponse.data.name) {
+      idResponse.setErrorResponse("ERROR", 401);
+    }
+
+    return idResponse;
   },
 };
 

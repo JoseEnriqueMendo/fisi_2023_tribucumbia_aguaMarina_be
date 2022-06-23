@@ -20,12 +20,21 @@ const userService = {
     }
   },
 
-  registro: async (name, email, password, id_Rol) => {
+  registro: async (
+    name,
+    lastname,
+    gender,
+    email,
+    dni,
+    phone,
+    password,
+    id_Rol
+  ) => {
     let serviceResponseRegister = new ServiceResponse();
     try {
       const { rows } = await client.query(
-        'INSERT INTO "user" (name,email,password,id_profile) VALUES ($1,$2,$3,$4) RETURNING * ',
-        [name, email, password, id_Rol]
+        'INSERT INTO "user" (name,lastname,gender,email,dni,phone_number,password,id_profile) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING * ',
+        [name, lastname, gender, email, dni, phone, password, id_Rol]
       );
       serviceResponseRegister.setSucessResponse(
         "Usuario registrado exitosamente",
@@ -50,6 +59,20 @@ const userService = {
       serviceResponseRole.setErrorResponse(error.message, 500);
     } finally {
       return serviceResponseRole;
+    }
+  },
+
+  obtenerUsuarioPorId: async (idUser) => {
+    let serviceResponseUser = new ServiceResponse();
+    try {
+      const { rows } = await client.query('SELECT * FROM "user" WHERE id=$1', [
+        idUser,
+      ]);
+      serviceResponseUser.setSucessResponse("Usuario encontrado", rows[0]);
+    } catch (error) {
+      serviceResponseUser.setErrorResponse(error.message, 500);
+    } finally {
+      return serviceResponseUser;
     }
   },
 };

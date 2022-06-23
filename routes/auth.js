@@ -4,12 +4,17 @@ const userController = require("../controllers/user");
 const authorize = require("../middleware/User/authorize");
 const validInfo = require("../middleware/User/validInfo");
 
-router.post("/register", validInfo, async (req, res) => {
-  const { name, email, password, role } = req.body;
+router.post("/register", async (req, res) => {
+  const { name, lastname, gender, email, dni, phone, password, role } =
+    req.body;
 
   const registerResponse = await userController.register(
     name,
+    lastname,
+    gender,
     email,
+    dni,
+    phone,
     password,
     role
   );
@@ -27,6 +32,11 @@ router.post("/login", validInfo, async (req, res) => {
 
 router.get("/verify", authorize, (req, res) => {
   res.json(true);
+});
+
+router.get("/getName", authorize, async (req, res) => {
+  const response = await userController.showName(req.user);
+  res.send(response);
 });
 
 module.exports = router;
