@@ -7,4 +7,9 @@ router.get("/all", async (req, res) => {
   res.send(responseShowData);
 });
 
+router.get("/count",async (req,res) => {
+  const responseCount = await categoryController.count();
+  res.send(responseCount);
+})
+
 module.exports = router;
