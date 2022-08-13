@@ -25,6 +25,12 @@ const categoryController = {
     response.setSucessResponse("Categoría(s) encontradas", true);
     return response;
   },
+
+  create: async (name, description, url) => {
+    const responseCreate = await categoryService.create(name, description, url);
+
+    return responseCreate;
+  },
 };
 
 module.exports = categoryController;

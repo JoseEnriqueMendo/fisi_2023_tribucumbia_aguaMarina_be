@@ -27,6 +27,24 @@ const categoryService = {
       return serviceResponseCount;
     }
   },
+
+  create: async (name, description, url) => {
+    let serviceResponseCreate = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        "INSERT INTO category (name,description,image_url) values ($1,$2,$3) RETURNING *",
+        [name, description, url]
+      );
+      serviceResponseCreate.setSucessResponse(
+        "Categoría creada exitosamente",
+        rows[0]
+      );
+    } catch (error) {
+      serviceResponseCreate.setErrorResponse(error.message, 500);
+    } finally {
+      return serviceResponseCreate;
+    }
+  },
 };
 
 module.exports = categoryService;
