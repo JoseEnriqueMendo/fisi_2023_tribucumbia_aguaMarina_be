@@ -19,6 +19,28 @@ const dishesController = {
     response.setSucessResponse("Categoría(s) encontradas", true);
     return response;
   },
+
+  list: async () => {
+    const responseData = await dishesService.list();
+    if (!responseData.data) {
+      responseData.setErrorResponse("No hay registros de categorías", 400);
+      return responseData;
+    }
+
+    return responseData;
+  },
+
+  create: async (name, description, image, price, idcategory) => {
+    const responseCreate = await categoryService.create(
+      name,
+      description,
+      image,
+      price,
+      idcategory
+    );
+
+    return responseCreate;
+  },
 };
 
 module.exports = dishesController;
