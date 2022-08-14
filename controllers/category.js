@@ -31,6 +31,17 @@ const categoryController = {
 
     return responseCreate;
   },
+
+  edit: async (name, description, url, id) => {
+    const responseEdit = await categoryService.edit(name, description, url, id);
+
+    return responseEdit;
+  },
+
+  delete: async (id) => {
+    const responseDelete = await categoryService.delete(id);
+    return responseDelete;
+  },
 };
 
 module.exports = categoryController;

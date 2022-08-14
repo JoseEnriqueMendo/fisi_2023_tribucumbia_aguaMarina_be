@@ -27,6 +27,24 @@ const dishesService = {
       return serviceResponseList;
     }
   },
+
+  create: async (name, description, image, price, idcategory) => {
+    let serviceResponseCreate = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        "INSERT INTO platillo (nombre,descripcion,imagen,precio,id_categoria) values ($1,$2,$3,$4,$5) RETURNING *",
+        [name, description, image, price, idcategory]
+      );
+      serviceResponseCreate.setSucessResponse(
+        "Platillo creado exitosamente",
+        rows[0]
+      );
+    } catch (error) {
+      serviceResponseCreate.setErrorResponse(error.message, 500);
+    } finally {
+      return serviceResponseCreate;
+    }
+  },
 };
 
 module.exports = dishesService;

@@ -22,4 +22,21 @@ router.post("/create", async (req, res) => {
   res.send(responseCreate);
 });
 
+router.post("/edit", async (req, res) => {
+  const { name, description, url, id } = req.body;
+  const responseEdit = await categoryController.edit(
+    name,
+    description,
+    url,
+    id
+  );
+  res.send(responseEdit);
+});
+
+router.post("/delete", async (req, res) => {
+  const { id } = req.body;
+  const responseDelete = await categoryController.delete(id);
+  res.send(responseDelete);
+});
+
 module.exports = router;

@@ -45,6 +45,42 @@ const categoryService = {
       return serviceResponseCreate;
     }
   },
+
+  edit: async (name, description, url, id) => {
+    let ServiceResponseEdit = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        'UPDATE "category" SET name=$1, SET description=$2, SET image_url=$3 WHERE id =$4 RETURNING *',
+        [name, description, url, id]
+      );
+      ServiceResponseEdit.setSucessResponse(
+        "Categoría editada con éxito",
+        true
+      );
+    } catch (error) {
+      serviceResponseCreate.setErrorResponse(error.message, 500);
+    } finally {
+      return serviceResponseCreate;
+    }
+  },
+
+  delete: async (id) => {
+    let ServiceResponseDelete = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        'DELETE FROM "category" WHERE id=$1 RETURNING *',
+        [id]
+      );
+      ServiceResponseDelete.setSucessResponse(
+        "Categoría eliminada con éxito",
+        true
+      );
+    } catch (error) {
+      ServiceResponseDelete.setErrorResponse(error.message, 500);
+    } finally {
+      return serviceResponseCreate;
+    }
+  },
 };
 
 module.exports = categoryService;
