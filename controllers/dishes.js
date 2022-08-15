@@ -31,7 +31,7 @@ const dishesController = {
   },
 
   create: async (name, description, image, price, idcategory) => {
-    const responseCreate = await categoryService.create(
+    const responseCreate = await dishesService.create(
       name,
       description,
       image,

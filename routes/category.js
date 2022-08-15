@@ -39,4 +39,11 @@ router.post("/delete", async (req, res) => {
   res.send(responseDelete);
 });
 
+router.post("/getID", async (req, res) => {
+  const {name} = req.body;
+  const response = await categoryController.showName(name);
+  res.send(response);
+});
+
+
 module.exports = router;

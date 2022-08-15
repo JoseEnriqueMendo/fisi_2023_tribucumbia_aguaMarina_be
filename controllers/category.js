@@ -42,6 +42,20 @@ const categoryController = {
     const responseDelete = await categoryService.delete(id);
     return responseDelete;
   },
+
+  
+  showName: async (name) => {
+    const idResponse = await categoryService.obtenerIdPorNombre(name);
+
+    if (!idResponse.data) {
+      idResponse.setErrorResponse("ERROR", 401);
+    }
+
+    return idResponse;
+  },
+
+
+
 };
 
 module.exports = categoryController;

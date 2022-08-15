@@ -81,6 +81,23 @@ const categoryService = {
       return serviceResponseCreate;
     }
   },
+
+  obtenerIdPorNombre: async (name) => {
+    let serviceResponseUser = new ServiceResponse();
+    try {
+      const { rows } = await client.query('SELECT id FROM "category" WHERE name=$1', [
+        name,
+      ]);
+      serviceResponseUser.setSucessResponse("Categoria encontrada", rows[0]);
+    } catch (error) {
+      serviceResponseUser.setErrorResponse(error.message, 500);
+    } finally {
+      return serviceResponseUser;
+    }
+  },
+
+
+
 };
 
 module.exports = categoryService;
