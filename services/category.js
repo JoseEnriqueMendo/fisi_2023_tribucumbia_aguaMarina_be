@@ -78,7 +78,7 @@ const categoryService = {
     } catch (error) {
       ServiceResponseDelete.setErrorResponse(error.message, 500);
     } finally {
-      return serviceResponseCreate;
+      return ServiceResponseDelete;
     }
   },
 
