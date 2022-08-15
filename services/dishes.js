@@ -18,7 +18,7 @@ const dishesService = {
   list: async () => {
     let serviceResponseList = new ServiceResponse();
     try {
-      const { rows } = await client.query('SELECT * FROM "platillos"');
+      const { rows } = await client.query('SELECT * FROM "platillo"');
       serviceResponseList.setSucessResponse("Platillos encontradas", rows);
       console.log(rows);
     } catch (error) {

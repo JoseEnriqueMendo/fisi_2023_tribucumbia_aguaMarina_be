@@ -4,6 +4,21 @@ const userController = require("../controllers/user");
 const authorize = require("../middleware/User/authorize");
 const validInfo = require("../middleware/User/validInfo");
 
+
+
+
+router.get("/count", async (req, res) => {
+  const responseCount = await userController.count();
+  res.send(responseCount);
+});
+
+router.get("/all", async (req, res) => {
+  const responseShowData = await userController.list();
+  res.send(responseShowData);
+});
+
+
+
 router.post("/register", async (req, res) => {
   const { name, lastname, gender, email, dni, phone, password, role } =
     req.body;

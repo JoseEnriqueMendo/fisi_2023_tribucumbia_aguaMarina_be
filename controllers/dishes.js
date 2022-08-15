@@ -23,7 +23,7 @@ const dishesController = {
   list: async () => {
     const responseData = await dishesService.list();
     if (!responseData.data) {
-      responseData.setErrorResponse("No hay registros de categorías", 400);
+      responseData.setErrorResponse("No hay registros de platos", 400);
       return responseData;
     }
 

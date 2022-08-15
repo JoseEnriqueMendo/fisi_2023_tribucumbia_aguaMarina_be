@@ -9,6 +9,41 @@ const e = require("express");
 const { response } = require("express");
 
 const userController = {
+
+  count: async () => {
+    const response = await  userService.count();
+
+    if (response.data.count === "0") {
+      response.setSucessResponse(
+        "No hay usuarios en la base de datos",
+        false
+      );
+      return response;
+    }
+
+    response.setSucessResponse("Usuario(s) encontrados", true);
+    return response;
+  },
+
+  list: async () => {
+    const responseData = await userService.list();
+    if (!responseData.data) {
+      responseData.setErrorResponse("No hay registros de usuarios", 400);
+      return responseData;
+    }
+
+    return responseData;
+  },
+
+
+
+
+
+
+
+
+
+
   register: async (
     name,
     lastname,
