@@ -50,7 +50,7 @@ const categoryService = {
     let ServiceResponseEdit = new ServiceResponse();
     try {
       const { rows } = await client.query(
-        'UPDATE "category" SET name=$1, SET description=$2, SET image_url=$3 WHERE id =$4 RETURNING *',
+        "UPDATE category SET name=$1, description=$2, image_url=$3, id=$4 WHERE id =$4",
         [name, description, url, id]
       );
       ServiceResponseEdit.setSucessResponse(
@@ -60,7 +60,7 @@ const categoryService = {
     } catch (error) {
       serviceResponseCreate.setErrorResponse(error.message, 500);
     } finally {
-      return serviceResponseCreate;
+      return ServiceResponseEdit;
     }
   },
 
@@ -85,9 +85,10 @@ const categoryService = {
   obtenerIdPorNombre: async (name) => {
     let serviceResponseUser = new ServiceResponse();
     try {
-      const { rows } = await client.query('SELECT id FROM "category" WHERE name=$1', [
-        name,
-      ]);
+      const { rows } = await client.query(
+        'SELECT id FROM "category" WHERE name=$1',
+        [name]
+      );
       serviceResponseUser.setSucessResponse("Categoria encontrada", rows[0]);
     } catch (error) {
       serviceResponseUser.setErrorResponse(error.message, 500);
@@ -95,9 +96,6 @@ const categoryService = {
       return serviceResponseUser;
     }
   },
-
-
-
 };
 
 module.exports = categoryService;
