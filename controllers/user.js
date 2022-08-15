@@ -37,13 +37,6 @@ const userController = {
 
 
 
-
-
-
-
-
-
-
   register: async (
     name,
     lastname,
