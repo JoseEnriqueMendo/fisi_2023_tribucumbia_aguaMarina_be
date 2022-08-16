@@ -100,6 +100,24 @@ const userService = {
       return serviceResponseUser;
     }
   },
+
+  edit: async (name, lastname, gender, email, dni, phone, password, id) => {
+    let serviceResponseEdit = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        'UPDATE "user" SET name=$1, lastname=$2, gender=$3, email=$4, dni=$5, phone=$6, password=$7 WHERE id=$8',
+        [name, lastname, gender, email, dni, phone, password, id]
+      );
+      serviceResponseEdit.setSucessResponse(
+        "Usuario modificado con éxito",
+        true
+      );
+    } catch (error) {
+      serviceResponseEdit.setErrorResponse(error.message, 500);
+    } finally {
+      return serviceResponseEdit;
+    }
+  },
 };
 
 

@@ -42,14 +42,13 @@ const dishesController = {
     return responseCreate;
   },
 
-  edit: async (name, description, image, price, idcategory, idoffer, id) => {
+  edit: async (name, description, image, price, idcategory, id) => {
     const responseEdit = await dishesService.edit(
       name,
       description,
       image,
       price,
       idcategory,
-      idoffer,
       id
     );
 
@@ -57,19 +56,14 @@ const dishesController = {
   },
 
   delete: async (id) => {
-    const responseDelete = await dishesController.delete(id);
+    const responseDelete = await dishesService.delete(id);
     return responseDelete;
   },
-
 
   listPorCantidad: async (num) => {
     const nameResponse = await dishesService.listPorCantidad(num);
     return nameResponse;
   },
-
-
-
-
 };
 
 module.exports = dishesController;
