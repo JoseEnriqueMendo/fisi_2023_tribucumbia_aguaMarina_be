@@ -46,20 +46,12 @@ const dishesService = {
     }
   },
 
-  edit: async (
-    name,
-    description,
-    image,
-    precio,
-    id_categoria,
-    id_oferta,
-    id
-  ) => {
+  edit: async (name, description, image, precio, id_categoria, id) => {
     let ServiceResponseEdit = new ServiceResponse();
     try {
       const { rows } = await client.query(
-        "UPDATE platillo SET nombre=$1, descripcion=$2, imagen=$3, precio=$4, id_categoria=$5, id_oferta=$6 WHERE id =$7",
-        [name, description, image, precio, id_categoria, id_oferta, id]
+        "UPDATE platillo SET nombre=$1, descripcion=$2, imagen=$3, precio=$4, id_categoria=$5 WHERE id =$6",
+        [name, description, image, precio, id_categoria, id]
       );
       ServiceResponseEdit.setSucessResponse(
         "Categoría editada con éxito",
@@ -76,7 +68,7 @@ const dishesService = {
     let ServiceResponseDelete = new ServiceResponse();
     try {
       const { rows } = await client.query(
-        'DELETE FROM "category" WHERE id=$1 RETURNING *',
+        'DELETE FROM "platillo" WHERE id=$1 RETURNING *',
         [id]
       );
       ServiceResponseDelete.setSucessResponse(

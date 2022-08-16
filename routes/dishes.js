@@ -24,14 +24,13 @@ router.post("/create", async (req, res) => {
 });
 
 router.post("/edit", async (req, res) => {
-  const { name, description, image, price, idcategory, idoffer, id } = req.body;
+  const { name, description, image, price, idcategory, id } = req.body;
   const responseEdit = await dishesController.edit(
     name,
     description,
     image,
     price,
     idcategory,
-    idoffer,
     id
   );
   res.send(responseEdit);
