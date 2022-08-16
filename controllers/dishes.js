@@ -59,6 +59,16 @@ const dishesController = {
     const responseDelete = await dishesService.delete(id);
     return responseDelete;
   },
+
+
+  listPorCantidad: async (num) => {
+    const nameResponse = await dishesService.listPorCantidad(num);
+    return nameResponse;
+  },
+
+
+
+
 };
 
 module.exports = dishesController;

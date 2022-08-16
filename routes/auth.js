@@ -45,6 +45,16 @@ router.post("/login", validInfo, async (req, res) => {
   res.send(loginResponse);
 });
 
+router.post("/loginCliente", validInfo, async (req, res) => {
+  const { email, password } = req.body;
+
+  const loginResponse = await userController.loginCliente(email, password);
+
+  res.send(loginResponse);
+});
+
+
+
 router.get("/verify", authorize, (req, res) => {
   res.json(true);
 });
