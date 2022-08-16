@@ -41,6 +41,25 @@ const dishesController = {
 
     return responseCreate;
   },
+
+  edit: async (name, description, image, price, idcategory, idoffer, id) => {
+    const responseEdit = await dishesService.edit(
+      name,
+      description,
+      image,
+      price,
+      idcategory,
+      idoffer,
+      id
+    );
+
+    return responseEdit;
+  },
+
+  delete: async (id) => {
+    const responseDelete = await dishesController.delete(id);
+    return responseDelete;
+  },
 };
 
 module.exports = dishesController;

@@ -45,6 +45,50 @@ const dishesService = {
       return serviceResponseCreate;
     }
   },
+
+  edit: async (
+    name,
+    description,
+    image,
+    precio,
+    id_categoria,
+    id_oferta,
+    id
+  ) => {
+    let ServiceResponseEdit = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        "UPDATE platillo SET nombre=$1, descripcion=$2, imagen=$3, precio=$4, id_categoria=$5, id_oferta=$6 WHERE id =$7",
+        [name, description, image, precio, id_categoria, id_oferta, id]
+      );
+      ServiceResponseEdit.setSucessResponse(
+        "Categoría editada con éxito",
+        true
+      );
+    } catch (error) {
+      ServiceResponseEdit.setErrorResponse(error.message, 500);
+    } finally {
+      return ServiceResponseEdit;
+    }
+  },
+
+  delete: async (id) => {
+    let ServiceResponseDelete = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        'DELETE FROM "category" WHERE id=$1 RETURNING *',
+        [id]
+      );
+      ServiceResponseDelete.setSucessResponse(
+        "Categoría eliminada con éxito",
+        true
+      );
+    } catch (error) {
+      ServiceResponseDelete.setErrorResponse(error.message, 500);
+    } finally {
+      return ServiceResponseDelete;
+    }
+  },
 };
 
 module.exports = dishesService;

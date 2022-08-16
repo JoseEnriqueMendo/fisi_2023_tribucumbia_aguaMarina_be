@@ -40,10 +40,15 @@ router.post("/delete", async (req, res) => {
 });
 
 router.post("/getID", async (req, res) => {
-  const {name} = req.body;
+  const { name } = req.body;
   const response = await categoryController.showName(name);
   res.send(response);
 });
 
+router.post("/getname", async (req, res) => {
+  const { id } = req.body;
+  const response = await categoryController.getName(id);
+  res.send(response);
+});
 
 module.exports = router;

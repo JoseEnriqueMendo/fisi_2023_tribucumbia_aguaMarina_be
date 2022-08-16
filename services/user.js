@@ -3,7 +3,6 @@ const { client } = require("../db/index");
 const ServiceResponse = require("../entities/ServiceResponse");
 
 const userService = {
-
   count: async () => {
     let serviceResponseCount = new ServiceResponse();
     try {
@@ -28,19 +27,6 @@ const userService = {
       return serviceResponseList;
     }
   },
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   obtenerUsuario: async (email) => {
     let serviceResponseVerify = new ServiceResponse();
@@ -115,9 +101,5 @@ const userService = {
     }
   },
 };
-
-  
-
-
 
 module.exports = userService;

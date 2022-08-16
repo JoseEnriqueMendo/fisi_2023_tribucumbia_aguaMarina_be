@@ -58,7 +58,7 @@ const categoryService = {
         true
       );
     } catch (error) {
-      serviceResponseCreate.setErrorResponse(error.message, 500);
+      ServiceResponseEdit.setErrorResponse(error.message, 500);
     } finally {
       return ServiceResponseEdit;
     }
@@ -94,6 +94,21 @@ const categoryService = {
       serviceResponseUser.setErrorResponse(error.message, 500);
     } finally {
       return serviceResponseUser;
+    }
+  },
+
+  obtenerNombrePorId: async (id) => {
+    let ServiceResponseGetName = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        'SELECT name FROM "category" WHERE id=$1 ',
+        [id]
+      );
+      ServiceResponseGetName.setSucessResponse("Categoría encontrada", rows[0]);
+    } catch (error) {
+      ServiceResponseGetName.setErrorResponse(error.message, 500);
+    } finally {
+      return ServiceResponseGetName;
     }
   },
 };

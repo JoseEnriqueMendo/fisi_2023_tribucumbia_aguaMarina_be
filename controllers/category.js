@@ -43,7 +43,6 @@ const categoryController = {
     return responseDelete;
   },
 
-  
   showName: async (name) => {
     const idResponse = await categoryService.obtenerIdPorNombre(name);
 
@@ -54,8 +53,10 @@ const categoryController = {
     return idResponse;
   },
 
-
-
+  getName: async (id) => {
+    const nameResponse = await categoryService.obtenerNombrePorId(id);
+    return nameResponse;
+  },
 };
 
 module.exports = categoryController;

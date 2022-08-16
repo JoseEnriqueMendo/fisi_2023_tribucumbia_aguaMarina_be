@@ -23,4 +23,24 @@ router.post("/create", async (req, res) => {
   res.send(responseCreate);
 });
 
+router.post("/edit", async (req, res) => {
+  const { name, description, image, price, idcategory, idoffer, id } = req.body;
+  const responseEdit = await dishesController.edit(
+    name,
+    description,
+    image,
+    price,
+    idcategory,
+    idoffer,
+    id
+  );
+  res.send(responseEdit);
+});
+
+router.post("/delete", async (req, res) => {
+  const { id } = req.body;
+  const responseDelete = await dishesController.delete(id);
+  res.send(responseDelete);
+});
+
 module.exports = router;
