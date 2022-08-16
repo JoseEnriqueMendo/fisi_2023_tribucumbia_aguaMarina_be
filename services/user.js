@@ -118,6 +118,27 @@ const userService = {
       return serviceResponseEdit;
     }
   },
+
+  delete: async (id) => {
+    let ServiceResponseDelete = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        'DELETE FROM "user" WHERE id=$1 RETURNING *',
+        [id]
+      );
+      ServiceResponseDelete.setSucessResponse(
+        "usuario eliminado con éxito",
+        true
+      );
+    } catch (error) {
+      ServiceResponseDelete.setErrorResponse(error.message, 500);
+    } finally {
+      return ServiceResponseDelete;
+    }
+  },
+
+
+
 };
 
 
