@@ -64,4 +64,29 @@ router.get("/getName", authorize, async (req, res) => {
   res.send(response);
 });
 
+
+router.post("/edit", async (req, res) => {
+  const {   name, 
+    lastname, gender, email,  dni,  phone,  hashedPassword,id } = req.body;
+  const responseEdit = await userController.edit(
+       name, 
+      lastname,
+       gender, 
+       email, 
+       dni, 
+       phone, 
+       hashedPassword,
+        id
+  );
+  res.send(responseEdit);
+});
+
+router.post("/delete", async (req, res) => {
+  const { id } = req.body;
+  const responseDelete = await userController.delete(id);
+  res.send(responseDelete);
+});
+
+
+
 module.exports = router;

@@ -182,6 +182,45 @@ const userController = {
 
     return idResponse;
   },
+
+  
+  edit: async (name, lastname, gender, email, dni, phone, password, id) => {
+    const response = await userService.obtenerUsuario(email);
+
+    //Comprobar si el email es valido
+
+    if (response.data) {
+      response.setErrorResponse("Ya existe un usuario con este email", 400);
+      return response;
+    }
+    //Encriptar contraseña
+
+    const hashedPassword = await hashPassword(password);
+
+
+
+    const responseEdit = await userService.edit(
+      name, 
+      lastname,
+       gender, 
+       email, 
+       dni, 
+       phone, 
+       hashedPassword,
+        id
+    );
+
+    return responseEdit;
+  },
+
+  delete: async (id) => {
+    const responseDelete = await userService.delete(id);
+    return responseDelete;
+  },
+
+
+
+
 };
 
 module.exports = userController;

@@ -127,7 +127,7 @@ const userService = {
         [id]
       );
       ServiceResponseDelete.setSucessResponse(
-        "Platillo eliminado con éxito",
+        "usuario eliminado con éxito",
         true
       );
     } catch (error) {
