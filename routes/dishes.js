@@ -43,4 +43,13 @@ router.post("/delete", async (req, res) => {
   res.send(responseDelete);
 });
 
+router.post("/listPorCantidad", async (req, res) => {
+  const { num } = req.body;
+  const response = await dishesController.listPorCantidad(num);
+  res.send(response);
+});
+
+
+
+
 module.exports = router;

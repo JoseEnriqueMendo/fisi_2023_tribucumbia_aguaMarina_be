@@ -111,6 +111,29 @@ const categoryService = {
       return ServiceResponseGetName;
     }
   },
+
+    listPorCantidad: async (num) => {
+    let ServiceResponseGetName = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        'SELECT * FROM "category"  FETCH FIRST $1 ROWS ONLY',
+        [num]
+      );
+      ServiceResponseGetName.setSucessResponse("Categoría"+num+"encontrada",rows);
+    } catch (error) {
+      ServiceResponseGetName.setErrorResponse(error.message, 500);
+    } finally {
+      return ServiceResponseGetName;
+    }
+  },
+  
+
 };
+
+
+
+
+
+
 
 module.exports = categoryService;

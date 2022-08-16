@@ -57,6 +57,13 @@ const categoryController = {
     const nameResponse = await categoryService.obtenerNombrePorId(id);
     return nameResponse;
   },
+
+  listPorCantidad: async (num) => {
+    const nameResponse = await categoryService.listPorCantidad(num);
+    return nameResponse;
+  },
+
+
 };
 
 module.exports = categoryController;

@@ -60,6 +60,16 @@ const dishesController = {
     const responseDelete = await dishesController.delete(id);
     return responseDelete;
   },
+
+
+  listPorCantidad: async (num) => {
+    const nameResponse = await dishesService.listPorCantidad(num);
+    return nameResponse;
+  },
+
+
+
+
 };
 
 module.exports = dishesController;

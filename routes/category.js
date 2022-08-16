@@ -51,4 +51,13 @@ router.post("/getname", async (req, res) => {
   res.send(response);
 });
 
+router.post("/listPorCantidad", async (req, res) => {
+  const { num } = req.body;
+  const response = await categoryController.listPorCantidad(num);
+  res.send(response);
+});
+
+
+
+
 module.exports = router;

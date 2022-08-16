@@ -130,6 +130,49 @@ const userController = {
     return responseExists;
   },
 
+
+  loginCliente: async (email, password) => {
+    //Verificar que el usuario exista
+    const responseExists = await userService.obtenerUsuario(email);
+
+    if (!responseExists.data) {
+      responseExists.setErrorResponse(
+        "El email seleccionado no es válido",
+        401
+      );
+      return responseExists;
+    }
+
+
+    //Verificar que la contraseña coincida
+
+    const validPassword = await bcrypt.compare(
+      password,
+      responseExists.data.password
+    );
+
+    if (!validPassword) {
+      responseExists.setErrorResponse( "Contraseña no válida", 401);
+      return responseExists;
+    }
+
+    //Crear Json web Token
+
+    const token = jwtGenerator(responseExists.data.id);
+
+    responseExists.setSucessResponse("Se inició sesión exitosamente", {
+      
+      token: token,
+    });
+
+    return responseExists;  
+  },
+
+
+
+
+
+
   showName: async (id) => {
     const idResponse = await userService.obtenerUsuarioPorId(id);
 
