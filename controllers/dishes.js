@@ -1,5 +1,6 @@
 const ServiceResponse = require("../entities/ServiceResponse");
 const dishesService = require("../services/dishes");
+const categoryService = require("../services/category");
 
 const e = require("express");
 const { response } = require("express");
@@ -63,6 +64,20 @@ const dishesController = {
   listPorCantidad: async (num) => {
     const nameResponse = await dishesService.listPorCantidad(num);
     return nameResponse;
+  },
+
+  selectDishes: async (nombre) => {
+    const idResponse = await categoryService.obtenerIdPorNombre(nombre);
+    // console.log(idResponse);
+    if (!idResponse.data) {
+      idResponse.setErrorResponse("id no encontrada", 500);
+      return idResponse;
+    }
+
+    const SelectResponse = await dishesService.listarporNombre(
+      idResponse.data.id
+    );
+    return SelectResponse;
   },
 };
 

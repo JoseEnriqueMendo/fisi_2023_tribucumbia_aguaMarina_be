@@ -89,16 +89,32 @@ const dishesService = {
         'SELECT * FROM "platillo"  FETCH FIRST $1 ROWS ONLY',
         [num]
       );
-      ServiceResponseGetName.setSucessResponse("Categoría"+num+"encontrada",rows);
+      ServiceResponseGetName.setSucessResponse(
+        "Categoría" + num + "encontrada",
+        rows
+      );
     } catch (error) {
       ServiceResponseGetName.setErrorResponse(error.message, 500);
     } finally {
       return ServiceResponseGetName;
     }
-  }, 
+  },
 
-
-
+  listarporNombre: async (name) => {
+    let ServiceResponseSelect = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        "SELECT * FROM platillo WHERE id_categoria=$1",
+        [name]
+      );
+      ServiceResponseSelect.setSucessResponse("Platillos encontrados", rows);
+      console.log(ServiceResponseSelect);
+    } catch (error) {
+      ServiceResponseSelect.setErrorResponse(error.message, 500);
+    } finally {
+      return ServiceResponseSelect;
+    }
+  },
 };
 
 module.exports = dishesService;

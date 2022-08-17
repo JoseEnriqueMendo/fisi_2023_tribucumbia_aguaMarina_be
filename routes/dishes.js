@@ -48,7 +48,10 @@ router.post("/listPorCantidad", async (req, res) => {
   res.send(response);
 });
 
-
-
+router.post("/selectDishes", async (req, res) => {
+  const { name } = req.body;
+  const responseSelect = await dishesController.selectDishes(name);
+  res.send(responseSelect);
+});
 
 module.exports = router;

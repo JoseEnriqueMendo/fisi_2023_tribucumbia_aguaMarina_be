@@ -1,5 +1,4 @@
 const { client } = require("../db/index");
-
 const ServiceResponse = require("../entities/ServiceResponse");
 
 const categoryService = {
@@ -112,28 +111,23 @@ const categoryService = {
     }
   },
 
-    listPorCantidad: async (num) => {
+  listPorCantidad: async (num) => {
     let ServiceResponseGetName = new ServiceResponse();
     try {
       const { rows } = await client.query(
         'SELECT * FROM "category"  FETCH FIRST $1 ROWS ONLY',
         [num]
       );
-      ServiceResponseGetName.setSucessResponse("Categoría"+num+"encontrada",rows);
+      ServiceResponseGetName.setSucessResponse(
+        "Categoría" + num + "encontrada",
+        rows
+      );
     } catch (error) {
       ServiceResponseGetName.setErrorResponse(error.message, 500);
     } finally {
       return ServiceResponseGetName;
     }
   },
-  
-
 };
-
-
-
-
-
-
 
 module.exports = categoryService;

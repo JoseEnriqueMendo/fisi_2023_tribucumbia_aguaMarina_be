@@ -101,23 +101,7 @@ const userService = {
     }
   },
 
-  edit: async (name, lastname, gender, email, dni, phone, password, id) => {
-    let serviceResponseEdit = new ServiceResponse();
-    try {
-      const { rows } = await client.query(
-        'UPDATE "user" SET name=$1, lastname=$2, gender=$3, email=$4, dni=$5, phone=$6, password=$7 WHERE id=$8',
-        [name, lastname, gender, email, dni, phone, password, id]
-      );
-      serviceResponseEdit.setSucessResponse(
-        "Usuario modificado con éxito",
-        true
-      );
-    } catch (error) {
-      serviceResponseEdit.setErrorResponse(error.message, 500);
-    } finally {
-      return serviceResponseEdit;
-    }
-  },
+
 
   delete: async (id) => {
     let ServiceResponseDelete = new ServiceResponse();
@@ -136,6 +120,48 @@ const userService = {
       return ServiceResponseDelete;
     }
   },
+<<<<<<< HEAD
+=======
+
+
+  obtenerUsuarioPorEmail: async (emailUser) => {
+    let serviceResponseUser = new ServiceResponse();
+    try {
+      const { rows } = await client.query(`SELECT * FROM "user" WHERE email='`+emailUser +`'` 
+      );
+      serviceResponseUser.setSucessResponse("Usuario encontrado", rows[0]);
+    } catch (error) {
+      serviceResponseUser.setErrorResponse(error.message, 500);
+    } finally {
+      return serviceResponseUser;
+    }
+  },
+
+  edit: async (name, lastname, email, dni, phone,id) => {
+    let ServiceResponseEdit = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+   
+        `UPDATE "user" SET name=$1, lastname=$2, email=$3, dni=$4, phone_number=$5 WHERE id =$6`,
+        [name, lastname, email, dni, phone,id]
+      );
+      ServiceResponseEdit.setSucessResponse(
+        "Usuario editado con éxito",
+        true
+      );
+    } catch (error) {
+      ServiceResponseEdit.setErrorResponse(error.message, 500);
+    } finally {
+      return ServiceResponseEdit;
+    }
+  },
+
+
+
+
+
+
+>>>>>>> 55ff6ef5fabb06d54543354db4df48cb60f57cb8
 };
 
 module.exports = userService;

@@ -57,7 +57,4 @@ router.post("/listPorCantidad", async (req, res) => {
   res.send(response);
 });
 
-
-
-
 module.exports = router;

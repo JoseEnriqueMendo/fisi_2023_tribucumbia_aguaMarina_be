@@ -65,26 +65,33 @@ router.get("/getName", authorize, async (req, res) => {
 });
 
 
-router.post("/edit", async (req, res) => {
-  const {   name, 
-    lastname, gender, email,  dni,  phone,  hashedPassword,id } = req.body;
-  const responseEdit = await userController.edit(
-       name, 
-      lastname,
-       gender, 
-       email, 
-       dni, 
-       phone, 
-       hashedPassword,
-        id
-  );
-  res.send(responseEdit);
-});
+
 
 router.post("/delete", async (req, res) => {
   const { id } = req.body;
   const responseDelete = await userController.delete(id);
   res.send(responseDelete);
+});
+
+
+router.post("/getUserbyEmail", async (req, res) => {
+  const { email } = req.body;
+  const response = await userController.obtenerUsuario(email);
+  res.send(response);
+});
+
+
+router.post("/edit", async (req, res) => {
+  const { name, lastname, email, dni, phone, id} = req.body;
+  const responseEdit = await userController.edit(
+    name,
+     lastname,
+      email, 
+      dni,
+       phone,
+       id
+  );
+  res.send(responseEdit);
 });
 
 
