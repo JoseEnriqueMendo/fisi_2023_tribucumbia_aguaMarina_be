@@ -120,10 +120,6 @@ const userService = {
       return ServiceResponseDelete;
     }
   },
-<<<<<<< HEAD
-=======
-
-
   obtenerUsuarioPorEmail: async (emailUser) => {
     let serviceResponseUser = new ServiceResponse();
     try {
@@ -155,13 +151,6 @@ const userService = {
       return ServiceResponseEdit;
     }
   },
-
-
-
-
-
-
->>>>>>> 55ff6ef5fabb06d54543354db4df48cb60f57cb8
 };
 
 module.exports = userService;

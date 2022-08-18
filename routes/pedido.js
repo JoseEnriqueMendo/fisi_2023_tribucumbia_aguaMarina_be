@@ -16,4 +16,11 @@ router.post("/create", async (req, res) => {
 
 
 
+  router.post("/selectPedidoPorUsuario", async (req, res) => {
+    const { id } = req.body;
+    const responseSelect = await pedidoController.listPorUsuario(id);
+    res.send(responseSelect);
+  });
+
+
   module.exports = router;

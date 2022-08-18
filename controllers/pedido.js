@@ -18,6 +18,18 @@ const pedidoController = {
         return responseCreate;
 },
 
+    listPorUsuario: async (id) => {
+    const responseData = await pedidoService.listPorUsuario(id);
+    if (!responseData.data) {
+      responseData.setErrorResponse("No hay registros de pedidos", 400);
+      return responseData;
+    }
+
+    return responseData;
+  },
+
+  
+
 
 }
 
