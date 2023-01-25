@@ -66,7 +66,7 @@ const userService = {
         rows[0]
       );
     } catch (error) {
-      serviceResponseRegister.setErrorResponse("Error en la conexión", 500);
+      serviceResponseRegister.setErrorResponse(error.message, 500);
     } finally {
       return serviceResponseRegister;
     }
@@ -101,8 +101,6 @@ const userService = {
     }
   },
 
-
-
   delete: async (id) => {
     let ServiceResponseDelete = new ServiceResponse();
     try {
@@ -123,7 +121,8 @@ const userService = {
   obtenerUsuarioPorEmail: async (emailUser) => {
     let serviceResponseUser = new ServiceResponse();
     try {
-      const { rows } = await client.query(`SELECT * FROM "user" WHERE email='`+emailUser +`'` 
+      const { rows } = await client.query(
+        `SELECT * FROM "user" WHERE email='` + emailUser + `'`
       );
       serviceResponseUser.setSucessResponse("Usuario encontrado", rows[0]);
     } catch (error) {
@@ -133,18 +132,14 @@ const userService = {
     }
   },
 
-  edit: async (name, lastname, email, dni, phone,id) => {
+  edit: async (name, lastname, email, dni, phone, id) => {
     let ServiceResponseEdit = new ServiceResponse();
     try {
       const { rows } = await client.query(
-   
         `UPDATE "user" SET name=$1, lastname=$2, email=$3, dni=$4, phone_number=$5 WHERE id =$6`,
-        [name, lastname, email, dni, phone,id]
+        [name, lastname, email, dni, phone, id]
       );
-      ServiceResponseEdit.setSucessResponse(
-        "Usuario editado con éxito",
-        true
-      );
+      ServiceResponseEdit.setSucessResponse("Usuario editado con éxito", true);
     } catch (error) {
       ServiceResponseEdit.setErrorResponse(error.message, 500);
     } finally {

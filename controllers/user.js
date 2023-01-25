@@ -130,7 +130,6 @@ const userController = {
     return responseExists;
   },
 
-
   loginCliente: async (email, password) => {
     //Verificar que el usuario exista
     const responseExists = await userService.obtenerUsuario(email);
@@ -143,7 +142,6 @@ const userController = {
       return responseExists;
     }
 
-
     //Verificar que la contraseña coincida
 
     const validPassword = await bcrypt.compare(
@@ -152,7 +150,7 @@ const userController = {
     );
 
     if (!validPassword) {
-      responseExists.setErrorResponse( "Contraseña no válida", 401);
+      responseExists.setErrorResponse("Contraseña no válida", 401);
       return responseExists;
     }
 
@@ -161,17 +159,11 @@ const userController = {
     const token = jwtGenerator(responseExists.data.id);
 
     responseExists.setSucessResponse("Se inició sesión exitosamente", {
-      
       token: token,
     });
 
-    return responseExists;  
+    return responseExists;
   },
-
-
-
-
-
 
   showName: async (id) => {
     const idResponse = await userService.obtenerUsuarioPorId(id);
@@ -183,12 +175,10 @@ const userController = {
     return idResponse;
   },
 
-
   delete: async (id) => {
     const responseDelete = await userService.delete(id);
     return responseDelete;
   },
-
 
   obtenerUsuario: async (email) => {
     const idResponse = await userService.obtenerUsuarioPorEmail(email);
@@ -200,22 +190,18 @@ const userController = {
     return idResponse;
   },
 
-  edit: async (name, lastname, email, dni, phone,id) => {
+  edit: async (name, lastname, email, dni, phone, id) => {
     const responseEdit = await userService.edit(
       name,
       lastname,
       email,
-      dni, 
-      phone,id
+      dni,
+      phone,
+      id
     );
 
     return responseEdit;
   },
-
-
-
-
-
 };
 
 module.exports = userController;

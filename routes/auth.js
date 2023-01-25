@@ -4,9 +4,6 @@ const userController = require("../controllers/user");
 const authorize = require("../middleware/User/authorize");
 const validInfo = require("../middleware/User/validInfo");
 
-
-
-
 router.get("/count", async (req, res) => {
   const responseCount = await userController.count();
   res.send(responseCount);
@@ -16,8 +13,6 @@ router.get("/all", async (req, res) => {
   const responseShowData = await userController.list();
   res.send(responseShowData);
 });
-
-
 
 router.post("/register", async (req, res) => {
   const { name, lastname, gender, email, dni, phone, password, role } =
@@ -53,8 +48,6 @@ router.post("/loginCliente", validInfo, async (req, res) => {
   res.send(loginResponse);
 });
 
-
-
 router.get("/verify", authorize, (req, res) => {
   res.json(true);
 });
@@ -64,15 +57,11 @@ router.get("/getName", authorize, async (req, res) => {
   res.send(response);
 });
 
-
-
-
 router.post("/delete", async (req, res) => {
   const { id } = req.body;
   const responseDelete = await userController.delete(id);
   res.send(responseDelete);
 });
-
 
 router.post("/getUserbyEmail", async (req, res) => {
   const { email } = req.body;
@@ -80,20 +69,17 @@ router.post("/getUserbyEmail", async (req, res) => {
   res.send(response);
 });
 
-
 router.post("/edit", async (req, res) => {
-  const { name, lastname, email, dni, phone, id} = req.body;
+  const { name, lastname, email, dni, phone, id } = req.body;
   const responseEdit = await userController.edit(
     name,
-     lastname,
-      email, 
-      dni,
-       phone,
-       id
+    lastname,
+    email,
+    dni,
+    phone,
+    id
   );
   res.send(responseEdit);
 });
-
-
 
 module.exports = router;
