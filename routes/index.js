@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const authRouter = require("./gestion_usuarios");
 const categoryRouter = require("./gestion_categorias");
-const dishesRouter = require("./gestion_platillos.js");
-const facturaRouter = require("./gestion_factura.js");
+const dishesRouter = require("./gestion_platillos");
+const facturaRouter = require("./gestion_historicos");
 const pedidoRouter = require("./gestion_pedidos")
 
 // ? Clientes
@@ -10,14 +10,16 @@ router.use("/ux-gestion-usuarios/da/servicio-al-cliente/v1/", authRouter);
 // router.use("/auth/", authRouter);
 
 // ? Platillas
-router.use("/dishes", dishesRouter);
+router.use("/ux-gestion-platillos/da/servicio-al-cliente/v1/", dishesRouter);
 
 // ? Categorias
-router.use("/category", categoryRouter);
+router.use("/ux-gestion-categorias/da/servicio-al-cliente/v1/", categoryRouter);
+
+// ? Historicos
+router.use("/ux-gestion-historicos/da/servicio-al-cliente/v1/", facturaRouter);
 
 // ? Pedidos
-router.use("/pedido", pedidoRouter);
+router.use("/ux-gestion-pedidos/da/servicio-al-cliente/v1/", pedidoRouter);
 
-// ? Facturas
-router.use("/factura", facturaRouter);
+
 module.exports = router;

@@ -14,13 +14,18 @@ router.post("/crear-pedidos", async (req, res) => {
     res.send(responseCreate);
   });
 
-
-
-  router.get("/mostrar-pedidos-usuarios/:id", async (req, res) => {
-    const { id } = req.params;
-    const responseSelect = await pedidoController.listPorUsuario(id);
-    res.send(responseSelect);
+  router.post("/crear-facturas", async (req, res) => {
+    const { total, fecha, id_usuario } = req.body;
+    const responseCreate = await facturaController.create(
+      total,
+      fecha,
+      id_usuario
+    );
+    res.send(responseCreate);
   });
+
+
+
 
 
   module.exports = router;
