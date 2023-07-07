@@ -55,7 +55,6 @@ const userController = {
     //INSERT user into the database
 
     if (role === "ADM") {
-      console.log("ADMIN");
       const AdminResult = await userService.registro(
         name,
         lastname,
@@ -68,7 +67,6 @@ const userController = {
       );
       return AdminResult;
     } else {
-      console.log("CLIENT");
       const ClientResult = await userService.registro(
         name,
         lastname,
@@ -168,9 +166,11 @@ const userController = {
   showName: async (id) => {
     const idResponse = await userService.obtenerUsuarioPorId(id);
 
-    if (!idResponse.data.name) {
-      idResponse.setErrorResponse("ERROR", 401);
-    }
+    console.log(idResponse);
+
+    // if (!idResponse.data.name) {
+    //   idResponse.setErrorResponse("ERROR", 401);
+    // }
 
     return idResponse;
   },

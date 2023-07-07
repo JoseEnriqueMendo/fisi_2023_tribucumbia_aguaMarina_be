@@ -20,7 +20,6 @@ const userService = {
     try {
       const { rows } = await client.query('SELECT * FROM "user"');
       serviceResponseList.setSucessResponse("Uusuario encontradas", rows);
-      console.log(rows);
     } catch (error) {
       serviceResponseList.setErrorResponse(error.message, 500);
     } finally {
@@ -93,7 +92,14 @@ const userService = {
       const { rows } = await client.query('SELECT * FROM "user" WHERE id=$1', [
         idUser,
       ]);
-      serviceResponseUser.setSucessResponse("Usuario encontrado", rows[0]);
+
+      if(rows[0] === undefined) {
+        serviceResponseUser.setErrorResponse('Usuario no encontrado', 500);
+      } else {
+        serviceResponseUser.setSucessResponse("Usuario encontrado", rows[0]);
+      }
+      
+
     } catch (error) {
       serviceResponseUser.setErrorResponse(error.message, 500);
     } finally {
@@ -101,13 +107,17 @@ const userService = {
     }
   },
 
-  delete: async (id) => {
+  delete: async (id, req, res) => {
     let ServiceResponseDelete = new ServiceResponse();
     try {
-      const { rows } = await client.query(
+      const result = await client.query(
         'DELETE FROM "user" WHERE id=$1 RETURNING *',
         [id]
       );
+
+      if(result.rowCount === 0) {
+        return ServiceResponseDelete.setErrorResponse('Usuario no encontrado', 404);
+      }
       ServiceResponseDelete.setSucessResponse(
         "usuario eliminado con éxito",
         true
@@ -118,6 +128,8 @@ const userService = {
       return ServiceResponseDelete;
     }
   },
+
+
   obtenerUsuarioPorEmail: async (emailUser) => {
     let serviceResponseUser = new ServiceResponse();
     try {
