@@ -176,6 +176,12 @@ const userController = {
   },
 
   delete: async (id) => {
+
+    const idResponse = await userService.obtenerUsuarioPorId(id);
+    if(idResponse.data === null){
+      return idResponse
+    }
+
     const responseDelete = await userService.delete(id);
     return responseDelete;
   },
@@ -191,6 +197,12 @@ const userController = {
   },
 
   edit: async (name, lastname, email, dni, phone, id) => {
+
+    const idResponse = await userService.obtenerUsuarioPorId(id);
+    if(idResponse.data === null){
+      return idResponse
+    }
+
     const responseEdit = await userService.edit(
       name,
       lastname,
@@ -199,6 +211,8 @@ const userController = {
       phone,
       id
     );
+
+
 
     return responseEdit;
   },

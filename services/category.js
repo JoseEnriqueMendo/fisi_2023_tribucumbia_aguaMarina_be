@@ -100,9 +100,14 @@ const categoryService = {
     let ServiceResponseGetName = new ServiceResponse();
     try {
       const { rows } = await client.query(
-        'SELECT name FROM "category" WHERE id=$1 ',
+        'SELECT * FROM "category" WHERE id=$1 ',
         [id]
       );
+
+      if(rows[0] === undefined) {
+        return ServiceResponseGetName.setErrorResponse('Categoria no encontrada', 404);
+      }
+
       ServiceResponseGetName.setSucessResponse("Categoría encontrada", rows[0]);
     } catch (error) {
       ServiceResponseGetName.setErrorResponse(error.message, 500);

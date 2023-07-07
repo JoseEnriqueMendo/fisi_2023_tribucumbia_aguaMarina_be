@@ -1,5 +1,5 @@
 const categoryService = require("../services/category");
-const ServiceResponse = require("../entities/serviceResponse");
+// const ServiceResponse = require("../entities/serviceResponse");
 
 const categoryController = {
   list: async () => {
@@ -21,8 +21,7 @@ const categoryController = {
       );
       return response;
     }
-
-    response.setSucessResponse("Categoría(s) encontradas", true);
+    // response.setSucessResponse("Categoría(s) encontradas", true);
     return response;
   },
 
@@ -33,25 +32,39 @@ const categoryController = {
   },
 
   edit: async (name, description, url, id) => {
-    const responseEdit = await categoryService.edit(name, description, url, id);
 
+    const idResponse = await categoryService.obtenerNombrePorId(id);
+    if (!idResponse.data) {
+      return idResponse;
+    }
+
+    const responseEdit = await categoryService.edit(name, description, url, id);
     return responseEdit;
   },
 
+
+
+
   delete: async (id) => {
+    const idResponse = await categoryService.obtenerNombrePorId(id);
+    if (!idResponse.data) {
+      return idResponse;
+    }
+
     const responseDelete = await categoryService.delete(id);
     return responseDelete;
   },
 
-  showName: async (name) => {
-    const idResponse = await categoryService.obtenerIdPorNombre(name);
+  // showName: async (name) => {
+  //   const idResponse = await categoryService.obtenerIdPorNombre(name);
 
-    if (!idResponse.data) {
-      idResponse.setErrorResponse("ERROR", 401);
-    }
+  //   if (!idResponse.data) {
+  //     idResponse.setErrorResponse("ERROR", 401);
+  //   }
 
-    return idResponse;
-  },
+  //   return idResponse;
+  // },
+
 
   getName: async (id) => {
     const nameResponse = await categoryService.obtenerNombrePorId(id);

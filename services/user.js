@@ -110,14 +110,14 @@ const userService = {
   delete: async (id, req, res) => {
     let ServiceResponseDelete = new ServiceResponse();
     try {
-      const result = await client.query(
+      const {rows} = await client.query(
         'DELETE FROM "user" WHERE id=$1 RETURNING *',
         [id]
       );
 
-      if(result.rowCount === 0) {
-        return ServiceResponseDelete.setErrorResponse('Usuario no encontrado', 404);
-      }
+      // if(result.rowCount === 0) {
+      //   return ServiceResponseDelete.setErrorResponse('Usuario no encontrado', 404);
+      // }
       ServiceResponseDelete.setSucessResponse(
         "usuario eliminado con éxito",
         true
@@ -147,10 +147,15 @@ const userService = {
   edit: async (name, lastname, email, dni, phone, id) => {
     let ServiceResponseEdit = new ServiceResponse();
     try {
-      const { rows } = await client.query(
+      const {rows} = await client.query(
         `UPDATE "user" SET name=$1, lastname=$2, email=$3, dni=$4, phone_number=$5 WHERE id =$6`,
         [name, lastname, email, dni, phone, id]
       );
+
+      // if(result.rowCount === 0) {
+      //   return ServiceResponseEdit.setErrorResponse('Usuario no encontrado', 404);
+      // }
+
       ServiceResponseEdit.setSucessResponse("Usuario editado con éxito", true);
     } catch (error) {
       ServiceResponseEdit.setErrorResponse(error.message, 500);

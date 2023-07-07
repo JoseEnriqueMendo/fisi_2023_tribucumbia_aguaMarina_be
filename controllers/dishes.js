@@ -16,8 +16,6 @@ const dishesController = {
       );
       return response;
     }
-
-    response.setSucessResponse("Categoría(s) encontradas", true);
     return response;
   },
 
@@ -29,6 +27,11 @@ const dishesController = {
     }
 
     return responseData;
+  },
+
+  list_id: async (id) => {
+    const idResponse = await dishesService.mostrarPlatillo(id);
+    return idResponse;
   },
 
   create: async (name, description, image, price, idcategory) => {
@@ -44,6 +47,12 @@ const dishesController = {
   },
 
   edit: async (name, description, image, price, idcategory, id) => {
+
+    const idResponse = await dishesService.mostrarPlatillo(id);
+    if(!idResponse.data) {
+      return idResponse;
+    }
+
     const responseEdit = await dishesService.edit(
       name,
       description,
@@ -57,6 +66,12 @@ const dishesController = {
   },
 
   delete: async (id) => {
+
+    const idResponse = await dishesService.mostrarPlatillo(id);
+    if(!idResponse.data) {
+      return idResponse;
+    }
+
     const responseDelete = await dishesService.delete(id);
     return responseDelete;
   },
@@ -66,19 +81,19 @@ const dishesController = {
     return nameResponse;
   },
 
-  selectDishes: async (nombre) => {
-    const idResponse = await categoryService.obtenerIdPorNombre(nombre);
-    // console.log(idResponse);
-    if (!idResponse.data) {
-      idResponse.setErrorResponse("id no encontrada", 500);
-      return idResponse;
-    }
+  // selectDishes: async (nombre) => {
+  //   const idResponse = await categoryService.obtenerIdPorNombre(nombre);
+  //   // console.log(idResponse);
+  //   if (!idResponse.data) {
+  //     idResponse.setErrorResponse("id no encontrada", 500);
+  //     return idResponse;
+  //   }
 
-    const SelectResponse = await dishesService.listarporNombre(
-      idResponse.data.id
-    );
-    return SelectResponse;
-  },
+  //   const SelectResponse = await dishesService.listarporNombre(
+  //     idResponse.data.id
+  //   );
+  //   return SelectResponse;
+  // },
 };
 
 module.exports = dishesController;

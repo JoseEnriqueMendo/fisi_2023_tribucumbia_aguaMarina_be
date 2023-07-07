@@ -72,7 +72,7 @@ const dishesService = {
         [id]
       );
       ServiceResponseDelete.setSucessResponse(
-        "Categoría eliminada con éxito",
+        "Platillo eliminado con éxito",
         true
       );
     } catch (error) {
@@ -100,14 +100,35 @@ const dishesService = {
     }
   },
 
-  listarporNombre: async (name) => {
+  listarporNombre: async (id) => {
     let ServiceResponseSelect = new ServiceResponse();
     try {
       const { rows } = await client.query(
         "SELECT * FROM platillo WHERE id_categoria=$1",
-        [name]
+        [id]
       );
       ServiceResponseSelect.setSucessResponse("Platillos encontrados", rows);
+      console.log(ServiceResponseSelect);
+    } catch (error) {
+      ServiceResponseSelect.setErrorResponse(error.message, 500);
+    } finally {
+      return ServiceResponseSelect;
+    }
+  },
+
+  mostrarPlatillo: async (id) => {
+    let ServiceResponseSelect = new ServiceResponse();
+    try {
+      const { rows } = await client.query(
+        "SELECT * FROM platillo WHERE id=$1",
+        [id]
+      );
+
+      if(rows[0] === undefined) {
+        return ServiceResponseSelect.setErrorResponse('Platillo no encontrado', 404);
+      }
+
+      ServiceResponseSelect.setSucessResponse("Platillos encontrados", rows[0]);
       console.log(ServiceResponseSelect);
     } catch (error) {
       ServiceResponseSelect.setErrorResponse(error.message, 500);

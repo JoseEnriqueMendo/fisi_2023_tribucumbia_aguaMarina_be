@@ -38,7 +38,7 @@ router.post("/registrar-usuarios", async (req, res) => {
 
 
 //? *************************** LOGIN/
-router.post("/login", validInfo, async (req, res) => {
+router.post("/iniciar-sesion-administradores", validInfo, async (req, res) => {
   const { email, password } = req.body;
 
   const loginResponse = await userController.login(email, password);
@@ -47,7 +47,7 @@ router.post("/login", validInfo, async (req, res) => {
 });
 //? ***************************
 
-router.post("/loginCliente", validInfo, async (req, res) => {
+router.post("/iniciar-sesion-clientes", validInfo, async (req, res) => {
   const { email, password } = req.body;
 
   const loginResponse = await userController.loginCliente(email, password);
@@ -60,7 +60,8 @@ router.get("/verify", authorize, (req, res) => {
   res.json(true);
 });
 
-router.get("/getName/:id", async (req, res) => {
+
+router.get("/obener-usuarios/:id", async (req, res) => {
   const {id} = req.params;
   const response = await userController.showName(id);
   res.send(response);
@@ -82,9 +83,9 @@ router.post("/getUserbyEmail", async (req, res) => {
 });
 
 
-
-router.post("/edit", async (req, res) => {
-  const { name, lastname, email, dni, phone, id } = req.body;
+router.put("/editar-usuarios/:id", async (req, res) => {
+  const {id} = req.params;
+  const { name, lastname, email, dni, phone} = req.body;
   const responseEdit = await userController.edit(
     name,
     lastname,
