@@ -16,8 +16,6 @@ const userController = {
       response.setSucessResponse("No hay usuarios en la base de datos", false);
       return response;
     }
-
-    response.setSucessResponse("Usuario(s) encontrados", true);
     return response;
   },
 

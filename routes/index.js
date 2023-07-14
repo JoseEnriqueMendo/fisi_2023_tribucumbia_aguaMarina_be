@@ -4,22 +4,25 @@ const categoryRouter = require("./gestion_categorias");
 const dishesRouter = require("./gestion_platillos");
 const facturaRouter = require("./gestion_historicos");
 const pedidoRouter = require("./gestion_pedidos")
+const pagosRouter = require("./gestion_pagos")
 
 // ? Clientes
-router.use("/ux-gestion-usuarios/da/servicio-al-cliente/v1/", authRouter);
+router.use("/ne-gestion-usuarios/servicio-al-cliente/v1/", authRouter);
 // router.use("/auth/", authRouter);
 
 // ? Platillas
-router.use("/ux-gestion-platillos/da/servicio-al-cliente/v1/", dishesRouter);
+router.use("/ne-gestion-platillos/servicio-al-cliente/v1/", dishesRouter);
 
 // ? Categorias
-router.use("/ux-gestion-categorias/da/servicio-al-cliente/v1/", categoryRouter);
+router.use("/ne-gestion-categorias/servicio-al-cliente/v1/", categoryRouter);
 
 // ? Historicos
-router.use("/ux-gestion-historicos/da/servicio-al-cliente/v1/", facturaRouter);
+router.use("/ne-gestion-historicos/servicio-al-cliente/v1/", facturaRouter);
 
 // ? Pedidos
-router.use("/ux-gestion-pedidos/da/servicio-al-cliente/v1/", pedidoRouter);
+router.use("/ne-gestion-pedidos/servicio-al-cliente/v1/", pedidoRouter);
+//pagos
+router.use("/ne-gestion-pagos/servicio-al-cliente/v1/", pagosRouter);
 
 
 module.exports = router;

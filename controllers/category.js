@@ -21,7 +21,7 @@ const categoryController = {
       );
       return response;
     }
-    // response.setSucessResponse("Categoría(s) encontradas", true);
+
     return response;
   },
 
